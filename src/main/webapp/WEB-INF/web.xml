@@ -1,2 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0"/>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://java.sun.com/xml/ns/javaee" 
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+		 id="WebApp_ID" 
+		 version="3.0">
+		 
+	<!-- 配置spring mvc前端控制器 -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- contextConfigLocation配置spingmvc加载的配置文件（配置处理器映射器、适配器、处理器等等） -->
+		<!-- 如果不配置默认加载的是web-inf/servlet名称-servlet.xml -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+
+	
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<!-- 
+		第一种：*.action  访问以.action结尾，由DispatcherServlet进行解析
+		第二种：/  所有访问都由DIspatcherServlet进行解析，对于静态的文件的解析，需要
+		              配置不让DispatcherServlet进行解析，使用此种方法，可以实现Restful风格的url
+		第三种：/*,这种配置不对。使用这种配置，最终要转发到一个jsp页面的时候，仍然会由DispatcherServlet解析jsp，不能根据jsp页面找到handler，会报错
+		 -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+		<!-- 字符编码过滤 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+	
+</web-app>
