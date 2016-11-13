@@ -9,14 +9,13 @@
 <title>首页</title>
 
 <!-- Bootstrap -->
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="static/components/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <style type="text/css">
 h1 {
 	text-align: center;
 }
 </style>
-
-<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="static/components/jquery/3.0.0/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		// 绑定form1提交事件

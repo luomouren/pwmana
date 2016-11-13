@@ -1,0 +1,77 @@
+body{
+	font-family:"微软雅黑";
+}
+
+/*顶部菜单栏css样式   start*****/
+.navbar-default{
+	background-color: #fff;
+    border: none;
+    box-shadow:0px 2px 8px 0px rgba(50, 50, 50, 0.25); 
+}
+
+/*标题*/
+.navbar-default .navbar-brand{
+	font-size: 30px;
+	font-weight:bold;
+	color:#40D2B1;
+	height:70px;
+	line-height:35px;
+}
+/*顶部菜单栏css样式   end*****/
+
+/*底部bar  css样式   start*****/
+.navbar-fixed-bottom .navbar-brand{
+    font-size: 12px;
+    color: #6C7371;
+    height: 20px;
+    line-height: 15px;
+}
+/*底部bar  css样式      end*****/
+
+/*<!--车载情况-->start************/
+#carCarryingInfoIndex{
+	padding: 80px 0;
+	text-align: center;
+}
+
+#carCarryingInfoIndex .queryConditionBar{
+	background-color: #E3EAF1;
+    border: 1px;
+}
+
+#carCarryingInfoIndex .queryResultBar{
+	background-color: #E3EAF1;
+    border: 1px;
+}
+
+#carCarryingInfoIndex .control-label{
+	text-align:right;
+}
+
+#carCarryingInfoIndex .col-md-4{
+	padding:15px;
+}
+#carCarryingInfoIndex .col-md-4:hover{
+	padding:15px;
+	background:#f1f1f1;
+	box-shadow:1px 1px 4px #ccc;
+}
+
+#carCarryingInfoIndex a{
+	color:#212121;
+	text-decoration: none;
+}
+
+#carCarryingInfoIndex img{
+	margin:0 auto;
+}
+
+#carCarryingInfoIndex h3{
+	font-weight: bold;
+}
+
+#carCarryingInfoIndex p{
+	line-height: 25px;
+}
+
+/*<!--车载情况-->end************/
