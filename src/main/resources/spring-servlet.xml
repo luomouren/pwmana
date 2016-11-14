@@ -15,7 +15,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- 处理器映射器 -->
-	<context:component-scan base-package="com.zacamy.pwmana.controller"/>
+	<context:component-scan base-package="com.zacamy.pwmana"/>
 	
 	<!-- 注解方式的适配器 -->
 	<!-- Spring3.1版本之前使用org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter -->
@@ -36,7 +36,7 @@
 
 
 	<!-- 默认访问跳转到登录页面(即定义无需Controller的url<->view直接映射) -->  
-    <mvc:view-controller path="/" view-name="index"/>
+    <mvc:view-controller path="/" view-name="demo"/>
     
 	<!-- 访问静态资源 -->
 	<mvc:default-servlet-handler />
@@ -48,5 +48,15 @@
         <property name="maxUploadSize" value="102400000000"></property>
         <property name="defaultEncoding" value="utf-8"/><!--属性：编码-->
     </bean>
+
+
+
+
+
+	<!-- 注解配置 -->  
+    <context:annotation-config></context:annotation-config>  
+    <!-- 引人其他文件 -->  
+    <import resource="data-source-tx.xml"></import>  
+      
 
 </beans>
