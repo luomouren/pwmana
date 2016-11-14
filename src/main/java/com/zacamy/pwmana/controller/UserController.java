@@ -29,7 +29,7 @@ public class UserController {
 	@RequestMapping(value = "/app/login",method=RequestMethod.POST)
 	public String login(String username, String password) {
 		boolean isLogin = false;
-		if(null!=username && null!=password){
+		if(null!=username && null!=password && !"".equalsIgnoreCase(password)&& !"".equalsIgnoreCase(username)){
 			//登录
 			isLogin = userService.login(username, password);
 			if(isLogin){
