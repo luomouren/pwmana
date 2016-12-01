@@ -1,4 +1,4 @@
-package com.zacamy.pwmana.controller;
+package com.zacamy.pwmana.controller.test;
 
 import java.io.File;
 import java.io.IOException;
