@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -18,8 +19,88 @@ import com.zacamy.pwmana.bean.WechatOrder;
  * 微信统一下单工具类
  */
 public class WechatOrderUtils {
+	/* 微信支付步骤：
+	 * 第一步 需要获取用户授权；
+	 * 第二步 调用统一下单接口获取预支付prepay_id；
+	 * 第三步 H5调起微信支付的内置的js。*/
 
-
+	/**
+	 * 获取用户的openid
+	 * @return openid
+	 */
+	private static String getOpenId(){
+		String openId="";
+		
+		String appid = PropertiesUtil.getValue("wechat.properties", "mchappid");
+		String secret = PropertiesUtil.getValue("wechat.properties", "mchappsecret");
+		String grantType = PropertiesUtil.getValue("wechat.properties", "grant_type");
+		String accessTokenURL = PropertiesUtil.getValue("wechat.properties", "access_tokenURL");
+		
+		//获取openId,参照微信官方文档https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_4
+		//1 第一步：用户同意授权，获取code
+		String code="";
+		/*获取用户授权有两种方式:1.scope=snsapi_base;
+		 * 				   2.scope=snsapi_userinfo.我使用的是snsapi_base
+		Scope为snsapi_base
+		https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx520c15f417810387&redirect_uri=http%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&response_type=code&scope=snsapi_base&state=123#wechat_redirect
+		Scope为snsapi_userinfo
+		https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+		微信的官方文档也有对各个参数的详细说明，我就关键的参数仔细的说明一下。
+		首先appid就不多说了就是你微信公众号的appid固定写死的，
+		redirect_uri这个参数是最重要的，这个地址是访问你处理的接口地址。
+		你可以在这个链接上拼接上你所需要的参数，一般你是要把订单的金额传到这个接口里的，访问这个链接的时候微信会给你code你需要用它去获取openid，
+		记得要对其进行urlencode处理。state参数可以理解为扩展字段，其他的参数都是固定写法就不在多做介绍了
+		*/
+		/*参数	是否必须	说明
+		appid	是	公众号的唯一标识
+		redirect_uri	是	授权后重定向的回调链接地址，请使用urlencode对链接进行处理
+		response_type	是	返回类型，请填写code
+		scope	是	应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）
+		state	否	重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
+		#wechat_redirect	是	无论直接打开还是做页面302重定向时候，必须带此参数*/
+		
+		
+		//2 第二步：通过code换取网页授权access_token
+		
+		/*参数	是否必须	说明
+		appid	是	公众号的唯一标识
+		secret	是	公众号的appsecret
+		code	是	填写第一步获取的code参数
+		grant_type	是	填写为authorization_code*/
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("appid", appid);
+        map.put("secret", secret);
+        map.put("code", code);
+        map.put("grant_type", grantType);
+        String returnStr;
+		try {
+			returnStr = HttpUtils.post(accessTokenURL, map);
+			Log.info("accessToken,returnStr:[" + returnStr + "]");
+			/*2.1 正确结果
+	         * {
+	        	   "access_token":"ACCESS_TOKEN",
+	        	   "expires_in":7200,
+	        	   "refresh_token":"REFRESH_TOKEN",
+	        	   "openid":"OPENID",
+	        	   "scope":"SCOPE",
+	        	   "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+	        	}
+	           2.2 错误结果
+	           {"errcode":40029,"errmsg":"invalid code"}
+	        	 */ 
+			if(returnStr.contains("errcode")){
+				Log.error("获取openid失败，第二步access_token失败");
+			}else{
+				AccessToken at = JSON.parseObject(returnStr, AccessToken.class);
+				openId = at.getOpenid();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.error("获取openid失败，第二步access_token失败", e);
+		}
+		return openId;
+	}
+	
     /**
      * 统一下单
      * @param detail    订单详情，必填
@@ -72,7 +153,13 @@ public class WechatOrderUtils {
             return result;
         }
 
-       /* 公众号调起微信支付的时候，必须要有openID*/
+        //获取openId
+        String getOpenId = getOpenId();
+        if(!StringUtils.isBlank(getOpenId)){
+        	openid = getOpenId;
+        }
+        
+        /* 公众号调起微信支付的时候，必须要有openID*/
         if ("JSAPI".equalsIgnoreCase(type) && StringUtils.isBlank(openid)) {
             Log.error("微信支付统一下单请求错误：请求参数不足", null);
             result.put("status", "error");
@@ -189,7 +276,7 @@ public class WechatOrderUtils {
         if (("JSAPI".equalsIgnoreCase(type))) {
             map.put("openid", openid);
         }
-
+        //签名
         String sign = SignatureUtils.signature(map, wx_key);
         xml = xml.replace("SIGN", sign);
 
@@ -207,7 +294,7 @@ public class WechatOrderUtils {
         }
 
 
-        //6、处理请求结果
+        //6、处理请求结果--获得   【预支付交易会话标识prepay_id】
         XStream s = new XStream(new DomDriver());
         s.alias("xml", WechatOrder.class);
         WechatOrder order = (WechatOrder) s.fromXML(response);

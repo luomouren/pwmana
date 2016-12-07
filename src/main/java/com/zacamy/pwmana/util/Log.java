@@ -25,12 +25,16 @@ public class Log {
 	public static void info(String message, Exception e) {
 		getLogger().info(message, e);
 	}
-
+	public static void info(String message) {
+		getLogger().info(message);
+	}
 	
 	public static void error(Message message, Exception e) {
 		getLogger().error(message.toString(), e);
 	}
-
+	public static void error(String message) {
+		getLogger().error(message);
+	}
 	
 	public static void warn(Message message, Exception e) {
 		getLogger().warn(message.toString(), e);
