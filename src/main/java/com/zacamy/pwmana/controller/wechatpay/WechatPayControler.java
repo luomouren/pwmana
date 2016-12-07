@@ -139,7 +139,7 @@ public class WechatPayControler extends BaseControler {
      * @return          返回包装了调起微信APPSDK所需要的函数
      * @throws Exception
      */
-    @RequestMapping("/appOarder.do")
+    @RequestMapping("/appOarder")
     @ResponseBody
     public String appOrder(String detail, String desc, String goodSn,String openId, String orderSn, String amount) throws Exception {
         JSONObject result = WechatOrderUtils.createOrder(detail, desc, "", "10.0.0.1", goodSn, orderSn, amount, "APP");
@@ -155,7 +155,7 @@ public class WechatPayControler extends BaseControler {
      * @param response
      * @throws IOException
      */
-    @RequestMapping(value = "/callback.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/callback", method = RequestMethod.POST)
     public void callBack(HttpServletRequest request,
                          HttpServletResponse response) throws IOException {
         InputStream is = request.getInputStream();
