@@ -1,0 +1,6 @@
+2016-12-07 13:27:55,631 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
+2016-12-07 13:32:46,398 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
+2016-12-07 13:33:07,783 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
+2016-12-07 13:33:50,369 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
+2016-12-07 13:49:40,978 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
+2016-12-07 13:51:21,080 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
