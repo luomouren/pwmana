@@ -1,7 +1,32 @@
-2016-12-07 13:27:55,631 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
-2016-12-07 13:32:46,398 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
-2016-12-07 13:33:07,783 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
-2016-12-07 13:33:50,369 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
-2016-12-07 13:49:40,978 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
-2016-12-07 13:51:21,080 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
-2016-12-07 15:07:04,369 ERROR com.zacamy.pwmana.util.Log.error(Log.java:44) - 微信支付统一下单请求错误：系统配置信息缺失
+2016-12-13 10:30:48,603 ERROR org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:351) - Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'shiroFilter' defined in class path resource [spring-shiro.xml]: Error setting property values; nested exception is org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are:
+PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property 'filterChainDefinitions' threw exception; nested exception is java.lang.NoSuchMethodError: org.slf4j.Logger.trace(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1518)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1226)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.registerBeanPostProcessors(PostProcessorRegistrationDelegate.java:240)
+	at org.springframework.context.support.AbstractApplicationContext.registerBeanPostProcessors(AbstractApplicationContext.java:687)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:444)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:326)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:107)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are:
+PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property 'filterChainDefinitions' threw exception; nested exception is java.lang.NoSuchMethodError: org.slf4j.Logger.trace(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V
+	at org.springframework.beans.AbstractPropertyAccessor.setPropertyValues(AbstractPropertyAccessor.java:121)
+	at org.springframework.beans.AbstractPropertyAccessor.setPropertyValues(AbstractPropertyAccessor.java:75)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1514)
+	... 22 more
