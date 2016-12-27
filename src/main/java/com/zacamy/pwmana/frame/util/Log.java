@@ -1,4 +1,4 @@
-package com.zacamy.pwmana.util;
+package com.zacamy.pwmana.frame.util;
 
 import org.apache.log4j.Logger;
 import org.springframework.messaging.Message;

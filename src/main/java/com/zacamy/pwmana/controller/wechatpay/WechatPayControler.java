@@ -26,11 +26,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.swetake.util.Qrcode;
-import com.zacamy.pwmana.util.AccessToken;
-import com.zacamy.pwmana.util.Log;
-import com.zacamy.pwmana.util.PropertiesUtil;
-import com.zacamy.pwmana.util.SignatureUtils;
-import com.zacamy.pwmana.util.WechatOrderUtils;
+import com.zacamy.pwmana.frame.util.AccessToken;
+import com.zacamy.pwmana.frame.util.Log;
+import com.zacamy.pwmana.frame.util.PropertiesUtil;
+import com.zacamy.pwmana.frame.util.SignatureUtils;
+import com.zacamy.pwmana.frame.util.WechatOrderUtils;
 
 @Controller
 @RequestMapping("/wechatPay")
@@ -234,4 +234,6 @@ public class WechatPayControler extends BaseControler {
 
     }
 
+  
+    
 }

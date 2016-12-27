@@ -1,4 +1,4 @@
-package com.zacamy.pwmana.util;
+package com.zacamy.pwmana.frame.util;
 
 public class AccessToken {
     private String access_token;

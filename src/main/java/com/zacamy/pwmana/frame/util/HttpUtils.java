@@ -1,4 +1,4 @@
-package com.zacamy.pwmana.util;
+package com.zacamy.pwmana.frame.util;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
