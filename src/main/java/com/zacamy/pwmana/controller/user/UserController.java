@@ -1,4 +1,4 @@
-package com.zacamy.pwmana.controller.user;
+/*package com.zacamy.pwmana.controller.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,12 +21,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	/**
+	*//**
 	 * 查找所有的用户记录
 	 * @param request
 	 * @param model
 	 * @return
-	 */
+	 *//*
 	@RequestMapping("/getAllUser")
 	public String getAllUser(HttpServletRequest request,Model model){
 		List<User> allUserList = userService.findAll();
@@ -35,37 +35,37 @@ public class UserController {
 		return "/user/allUser";
 	}
 	
-	/**
+	*//**
 	 * 跳转到添加用户页面
 	 * @param request
 	 * @param model
 	 * @return
-	 */
+	 *//*
 	@RequestMapping("/toAddUser")
 	public String toAddUser(HttpServletRequest request,Model model){
 		
 		return "/user/addUser";
 	}
 	
-	/**
+	*//**
 	 * 保存添加的用户并重定向
 	 * @param request
 	 * @param model
 	 * @param user 需要保存的用户
 	 * @return
-	 */
+	 *//*
 	@RequestMapping("/addUser")
 	public String addUser(HttpServletRequest request,Model model,User user){
 		userService.save(user);
 		return "redirect:/user/getAllUser";
 	}
 	
-	/**
+	*//**
 	 * 删除用户
 	 * @param id  要删除用户的id
 	 * @param request
 	 * @param model
-	 */
+	 *//*
 	@RequestMapping("/delUser")
 	public void delUser(int id ,HttpServletRequest request,Model model,HttpServletResponse response){
 		String result = "{\"result\":\"error\"}";
@@ -84,13 +84,13 @@ public class UserController {
 		}
 	}
 	
-	/**
+	*//**
 	 * 根据id查询单个用户
 	 * @param id
 	 * @param request
 	 * @param model
 	 * @return
-	 */
+	 *//*
 	@RequestMapping("/getUser")
 	public String getUser(int id ,HttpServletRequest request,Model model){
 		model.addAttribute("user",userService.findById(id));
@@ -110,3 +110,4 @@ public class UserController {
 	
 	
 }
+*/
