@@ -1,5 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*"  contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +82,7 @@ h1 {
 <body>
 	<h1>上传文件Demo ${username}</h1>
 	<hr />
-	<form action="upload" method="post"  enctype="multipart/form-data" id="form1">
+	<form action="<%=basePath%>itemsController/app/upload" method="post"  enctype="multipart/form-data" id="form1">
 		<div class="form-group" style="text-align: center;">
 			<input type="file" id="exampleInputFile" style="display: inline;" name="file1" data-max_size="1024000">
 			<button type="submit" class="btn btn-primary">提交</button>
@@ -88,5 +93,9 @@ h1 {
 			</div>
 		</div>
 	</form>
+	 <form action="<%=basePath%>itemsController/getSSLCerts" method="post">
+	     <input type="submit"  value="提交证书"/>
+	 </form>
+	
 </body>
 </html>
