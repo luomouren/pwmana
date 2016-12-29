@@ -96,4 +96,24 @@
          </user-data-constraint>
      </security-constraint> -->
 	
+	
+	<!-- RESTFul API start ******** -->
+	<filter>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<servlet-name>springmvc</servlet-name>
+	</filter-mapping>
+	<!-- 解决HTTP PUT请求Spring无法获取请求参数的问题 -->
+	<filter>  
+        <filter-name>httpPutFormFilter</filter-name>  
+        <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>httpPutFormFilter</filter-name>  
+        <servlet-name>springmvc</servlet-name>  
+    </filter-mapping>  
+	<!-- RESTFul API end ******** -->
 </web-app>

@@ -269,6 +269,32 @@
 		<!--wechatPay add 20161206 end********** -->
 		
 		
+		<!-- netty add 20161223 start******** -->
+		<dependency>
+		   <groupId>com.yao</groupId>
+		   <artifactId>Server</artifactId>
+		   <version>1.0.0-SNAPSHOT</version>
+		</dependency> 
+		<!-- netty add 20161223 end******** -->
+		
+		<!-- pojo返回json 20161229 start *************-->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-annotations</artifactId>
+		    <version>2.8.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>2.8.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.8.1</version>
+		</dependency>
+		<!-- pojo返回json 20161229 end *************-->
+		
    </dependencies>
 
   

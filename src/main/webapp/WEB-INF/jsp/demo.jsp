@@ -1,101 +1,115 @@
-<%@ page language="java" import="java.util.*"  contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
-	
-<!DOCTYPE html>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>首页</title>
+<base href="<%=basePath%>">
 
-<!-- Bootstrap -->
-<link href="static/components/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
-h1 {
-	text-align: center;
-}
-</style>
-<script type="text/javascript" src="static/components/jquery/3.0.0/jquery-3.1.1.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		// 绑定form1提交事件
-		$("#form1").submit(function(event) {
-			var form = new FormData($("#form1")[0]);
-			$.ajax({
-				url: 'upload',
-				type: 'post',
-				data: form,
-				xhr : function() { 
-					//获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数  
-					myXhr = $.ajaxSettings.xhr();
-					if (myXhr.upload) { //检查upload属性是否存在  
-						//绑定progress事件的回调函数  
-						myXhr.upload.addEventListener('progress', onprogress, false);
-					}
-					return myXhr; //xhr对象返回给jQuery使用  
-				},
-				cache: false,
-			    processData: false,
-			    contentType: false,
-			    success: function(data){
-			    	alert(data);
-			    },error: function(data){
-			    	alert(data);
-			    }
-			})
-			//清空输入的文件框
-			$("#exampleInputFile").val('');
-			// 阻止默认行为
-			event.preventDefault();
-		})
-		
-		// 校验文件大小
-		$("#exampleInputFile").on("change",checkSize);
-		
-		function checkSize(event){
-			var file = $(this)[0].files[0];
-			var maxSize = $(this).data("max_size");
-			if(file.size > maxSize) {
-				alert("文件过大");
-				//清空输入的文件框
-				$(this).val('');
-			}
-		}
-		
-		// 侦查附件上传情况
-		function onprogress(event) {
-			var loaded = event.loaded;                  //已经上传大小情况 
-	        var total = event.total;                      //附件总大小 
-	        var per = Math.floor(100*loaded/total);      //已经上传的百分比  
-	        $("#proges").text( per +"%" );
-	        $("#proges").css("width",per + "%");
-		}
-	})
-	
-</script>
+<title>RESTFul API Test</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
 </head>
 <body>
-	<h1>上传文件Demo ${username}</h1>
-	<hr />
-	<form action="<%=basePath%>itemsController/app/upload" method="post"  enctype="multipart/form-data" id="form1">
-		<div class="form-group" style="text-align: center;">
-			<input type="file" id="exampleInputFile" style="display: inline;" name="file1" data-max_size="1024000">
-			<button type="submit" class="btn btn-primary">提交</button>
-		</div>
-		<div class="progress">
-			<div id="proges" class="progress-bar" role="progressbar" aria-valuenow="0"
-				aria-valuemin="0" aria-valuemax="100" >0%
-			</div>
-		</div>
-	</form>
-	 <form action="<%=basePath%>itemsController/getSSLCerts" method="post">
-	     <input type="submit"  value="提交证书"/>
-	 </form>
-	
+<div
+	style="width:800px;margin-top:10px;margin-left: auto;margin-right: auto;text-align: center;">
+	<h2>RESTFul API Test</h2>
+</div>
+<div style="width:800px;margin-left: auto;margin-right: auto;">
+	<button class="uk-button uk-button-primary uk-button-large" id="btnGet">获取人员GET</button>
+	<button class="uk-button uk-button-primary uk-button-large" id="btnAdd">添加人员POST</button>
+	<button class="uk-button uk-button-primary uk-button-large" id="btnUpdate">更新人员PUT</button>
+	<button class="uk-button uk-button-danger uk-button-large" id="btnDel">删除人员DELETE</button>
+	<button class="uk-button uk-button-primary uk-button-large" id="btnList">查询列表PATCH</button>
+</div>
+
+<script type="text/javascript" src="static/components/jquery/3.0.0/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+	(function(window,$){
+		var dekota={
+			url:'test/',
+			init:function(){
+				dekota.url='<%=basePath%>';
+				console.info("页面初始化完成");
+				$("#btnGet").click(dekota.getPerson);
+				$("#btnAdd").click(dekota.addPerson);
+				$("#btnDel").click(dekota.delPerson);
+				$("#btnUpdate").click(dekota.updatePerson);
+				$("#btnList").click(dekota.listPerson);
+			},
+			getPerson:function(){
+				$.ajax({
+					url: dekota.url + 'test/person/101/',
+					type: 'GET',
+					dataType: 'json'
+				}).done(function(data, status, xhr) {
+					console.log("获取人员信息成功data-GET",data);
+				}).fail(function(xhr, status, error) {
+					console.log("获取人员信息请求失败data-GET",error);
+				});
+			},
+			addPerson:function(){
+				$.ajax({
+					url: dekota.url + 'test/person',
+					type: 'POST',
+					dataType: 'json',
+					data: {id: 1,username:'张三',sex:true,}
+				}).done(function(data, status, xhr) {
+					console.log("添加人员信息成功data-POST",data);
+				}).fail(function(xhr, status, error) {
+					console.log("添加人员信息请求失败data-POST",error);
+				});
+			},
+			delPerson:function(){
+				$.ajax({
+					url: dekota.url + 'test/person/109',
+					type: 'DELETE',
+					dataType: 'json'
+				}).done(function(data, status, xhr) {
+					console.log("删除人员信息成功data-DELETE",data);
+				}).fail(function(xhr, status, error) {
+					console.log("删除人员信息请求失败data-DELETE",error);
+				});
+			},
+			updatePerson:function(){
+				$.ajax({
+					url: dekota.url + 'test/person',
+					type: 'POST',//注意在传参数时，加：_method:'PUT'　将对应后台的PUT请求方法
+					dataType: 'json',
+					data: {_method:'PUT',id: 221,username:'王五',sex:true}
+				}).done(function(data, status, xhr) {
+					console.log("更新人员信息成功data-POST-PUT",data);
+				}).fail(function(xhr, status, error) {
+					console.log("更新人员信息请求失败data-POST-PUT",error);
+				});
+			},
+			listPerson:function(){
+				$.ajax({
+					url: dekota.url + 'test/person',
+					type: 'POST',//注意在传参数时，加：_method:'PATCH'　将对应后台的PATCH请求方法
+					dataType: 'json',
+					data: {_method:'PATCH',name: '张三'}//PATCH
+				}).done(function(data, status, xhr) {
+					console.log("查询人员信息成功data-POST-PATCH",data);
+				}).fail(function(xhr, status, error) {
+					console.log("查询人员信息请求失败data-POST-PATCH",error);
+				});
+			}
+		};
+		window.dekota=(window.dekota)?window.dekota:dekota;
+		$(function(){
+			dekota.init();
+		});
+	})(window,jQuery);
+
+</script>
 </body>
 </html>

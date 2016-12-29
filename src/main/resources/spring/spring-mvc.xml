@@ -49,4 +49,23 @@
         <property name="defaultEncoding" value="utf-8"/><!--属性：编码-->
     </bean>
 
+	
+	  <!-- RESTFul API 解析返回JSON -->
+	  <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		 <property name="messageConverters">
+		   <list >
+		    <ref bean="mappingJacksonHttpMessageConverter" />
+		   </list>
+		 </property>
+	 </bean>
+	 <!-- RESTFul API 解析返回JSON--格式设置 -->
+	 <bean id="mappingJacksonHttpMessageConverter"
+	  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		  <property name="supportedMediaTypes">
+		   <list>
+		    <value>text/html;charset=UTF-8</value>
+		   </list>
+		  </property>
+	 </bean>  
+
 </beans>
